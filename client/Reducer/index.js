@@ -11,10 +11,6 @@ const plantReducer = (state, action) => {
             return {...state, user: null, token: ''};
         case "SIGN_IN":
             return {...state, user: action.user, token: action.token};
-        case "APPEND_MY_PLANT":
-            const myPlants = [...state.myPlants, action.plant]
-            AsyncStorage.setItem('@myPlants', JSON.stringify(myPlants));
-            return {...state, myPlants: myPlants};
         case "APPEND_PLANT_PROFILE":
             const newPlantProfiles = [...state.plantProfiles, action.plant]
             console.log("new plant profile" +JSON.stringify(newPlantProfiles))

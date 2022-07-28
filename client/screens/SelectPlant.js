@@ -10,8 +10,8 @@ import { icons, images, COLORS, SIZES, FONTS } from '../constants';
 import { TouchableOpacity } from 'react-native';
 import Home from './Home';
 import { AuthContext } from '../context/auth';
-import { appendMyPlant } from '../Action';
-import * as NotificationManger from '../manager/NotificationManager'
+// import { appendMyPlant } from '../Action';
+// import * as NotificationManger from '../manager/NotificationManager'
 
 
 const RequirementBar = ({ icon, barPercentage }) => {
@@ -112,7 +112,7 @@ const PlantDetail = ({ route,navigation }) => {
                     <View style={{ flex: 1 }}>
                         <TouchableOpacity
                             style={{ width: 40, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 20, backgroundColor: 'rgba(255,255,255,0.5)' }}
-                            onPress={() => { navigation.navigate("Home", newPlants) }}
+                            onPress={() => { navigation.navigate("Home") }}
                         >
                             <Image
                                 source={icons.back}
@@ -207,17 +207,17 @@ const PlantDetail = ({ route,navigation }) => {
                         backgroundColor: COLORS.primary
                     }}
                     onPress={async () => {
-                        dispatch(appendMyPlant(plant));
-                        const identifier = await NotificationManger.schedulePushNotification(
-                            {
-                                title: "Its time to water your " + plant.name + " plant",
-                                body: "Please water your plant"
-                            },
-                            {
-                                minute: 2,
-                            },
-                            true,
-                        );
+                        // dispatch(appendMyPlant(plant));
+                        // const identifier = await NotificationManger.schedulePushNotification(
+                        //     {
+                        //         title: "Its time to water your " + plant.name + " plant",
+                        //         body: "Please water your plant"
+                        //     },
+                        //     {
+                        //         minute: 2,
+                        //     },
+                        //     true,
+                        // );
                         navigation.navigate("Home" )
                     }}
                 >
@@ -264,9 +264,9 @@ const PlantDetail = ({ route,navigation }) => {
                     }}
                 />
             </View>
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
+            {/* <TouchableOpacity onPress={() => setModalVisible(true)}>
 <FontAwesome5 name="camera" size={25} color="orange" />
-</TouchableOpacity>
+</TouchableOpacity> */}
 
             {/* Requirements */}
             <View

@@ -3,21 +3,21 @@ import {
     StyleSheet,
     View,
     Text,
-    Image
+    Image,
+    Pressable,
+    Alert
 } from 'react-native';
 
-import { icons, images, COLORS, SIZES, FONTS } from '../constants';
+import { icons, COLORS, SIZES, FONTS } from '../constants';
 import { TouchableOpacity } from 'react-native';
-import Home from './Home';
 import { AuthContext } from '../context/auth';
-import { appendMyPlant } from '../Action';
 import * as NotificationManger from '../manager/NotificationManager'
 import UserInput from "../components/auth/UserInput";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-
-
-
-
+import { Modal } from 'react-native-paper';
+import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from 'expo-file-system';
+import { appendPlantProfile } from '../Action';
 
 {/* Banner Photo */ }
 <View style={{ height: "35%" }}>
@@ -111,14 +111,120 @@ const RequirementDetail = ({ icon, label, detail }) => {
     )
 }
 
-const PlantDetail = ({ route, navigation }) => {
-    
+const PlantDetail = ({ navigation }) => {
+
 
     const [state, dispatch] = useContext(AuthContext);
-    // const {plant}=route.params;
+    const [plantModalVisible, setPlantModalVisible] = useState(false);
+    const [plantName, setPlantName] = useState()
+    const [water, setWater] = useState();
+    const [sunlight, setSunlight] = useState();
+    const [fertilizer, setFertilizer] = useState();
+    const [soil, setSoil] = useState();
+    const [uploadImage, setUploadImage] = useState();
+
+    const openCamera = async () => {
+        // Ask the user for the permission to access the camera
+        const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+        if (permissionResult.granted === false) {
+            Alert.alert("You've refused to allow this appp to access your camera!");
+            return;
+        }
+
+        const result = await ImagePicker.launchCameraAsync();
+
+        // Explore the result
+        console.log(result);
+
+        if (!result.cancelled) {
+            setUploadImage(result.uri);
+            console.log("Camera image location:" + result.uri);
+        }
+    }
+
+    const openGallery = async () => {
+        let permissionResult =
+            await ImagePicker.requestMediaLibraryPermissionsAsync();
+        console.log(permissionResult);
+        if (permissionResult.granted === false) {
+            alert("camera access is required");
+            return;
+        }
+        ImagePicker.sh
+        let pickerResult = await ImagePicker.launchImageLibraryAsync({
+            allowsEditing: true,
+            aspect: [4, 3],
+            base64: true,
+        });
+        //console.log("PICKER RESULT => ", pickerResult);
+        if (pickerResult.cancelled === true) {
+            return;
+        }
+        setUploadImage(pickerResult.uri);
+        console.log("Upload image location:" + pickerResult.uri);
+    };
+
+    const validateNewPlant = (plant) => {
+        if (!plant.soil || !plant.water || !plant.fertilizer || !plant.name || !plant.sunlight || !plant.image) {
+            return false;
+        }
+        return true;
+    }
+
+    const handleUpload = async () => {
+
+        // // TODO remove for prod
+        // dispatch(loadState({plantProfiles: [], myPlants:[]}));
+        
+        let newPlant = {
+            name: plantName,
+            soil: soil,
+            fertilizer: fertilizer,
+            water: water,
+            sunlight: sunlight,
+            image: uploadImage
+        };
+        console.log("adding new plant profile " + JSON.stringify(newPlant))
+
+        if (!validateNewPlant(newPlant)) {
+            alert("All fields are required")
+            // setLoading(false)
+            return;
+        }
+
+        try {
+            const localImageLocation = FileSystem.documentDirectory + newPlant.name + ".jpg";
+            await FileSystem.copyAsync({
+                from: newPlant.image,
+                to: localImageLocation,
+            });
+            newPlant.image = localImageLocation;
+
+            const identifier = await NotificationManger.schedulePushNotification(
+                {
+                    title: "Its time to water your " + newPlant.name + " plant",
+                    body: "Please water your plant"
+                },
+                {
+                    day: newPlant.water,
+                },
+                true,
+            );
+            newPlant.notificationId = identifier;
+
+            dispatch(appendPlantProfile(newPlant))
+
+            // setLoading(false);
+            navigation.navigate("Home")
+        } catch (err) {
+            alert("Plant upload failed. Try again");
+            console.log(err);
+            // setLoading(false);
+        }
+    };
 
     // Render
-
     function renderHeader() {
         return (
             <View
@@ -129,8 +235,41 @@ const PlantDetail = ({ route, navigation }) => {
                     right: SIZES.padding
                 }}
             >
-                <View style={{ flexDirection:'row' }}>
-                    
+                <View style={styles.centeredView}>
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={plantModalVisible}
+                        onRequestClose={() => {
+                            Alert.alert('Modal has been closed.');
+                            setPlantModalVisible(!plantModalVisible);
+                        }}>
+                        <View style={styles.centeredView}>
+                            <View style={styles.modalView}>
+                                <Pressable
+                                    style={[styles.button, styles.buttonClose]}
+                                    onPress={openCamera}>
+                                    <Text style={styles.textStyle}>Open Camera</Text>
+                                </Pressable>
+
+                                <Pressable
+                                    style={[styles.button, styles.buttonClose]}
+                                    onPress={openGallery}>
+                                    <Text style={styles.textStyle}>Open Gallery</Text>
+                                </Pressable>
+
+                                <Pressable
+                                    style={[styles.button, styles.buttonClose]}
+                                    onPress={() => setPlantModalVisible(!plantModalVisible)}>
+                                    <Text style={styles.textStyle}>Hide Modal</Text>
+                                </Pressable>
+                            </View>
+                        </View>
+                    </Modal>
+
+                </View>
+                <View style={{ flexDirection: 'row' }}>
+
                     <View style={{ flex: 1 }}>
                         <TouchableOpacity
                             style={{ width: 40, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 20, backgroundColor: 'rgba(255,255,255,0.5)' }}
@@ -148,12 +287,24 @@ const PlantDetail = ({ route, navigation }) => {
                     </View>
 
                 </View>
-                <View style={{ alignItems:'center' }}>
+                <View style={{ alignItems: 'center' }}>
                     <View >
-                        <TouchableOpacity onPress={() => setModalVisible(true)}>
-                            <FontAwesome5 name="camera" size={55} color="orange" />
+                        <TouchableOpacity onPress={() => setPlantModalVisible(true)}>
+                            {uploadImage ?
+                                <Image
+                                    source={{ uri: uploadImage }}
+                                    style={{
+                                        width: 190,
+                                        height: 190,
+                                        // borderRadius: 100,
+                                        marginVertical: 20
+                                    }}
+                                />
+                                : <FontAwesome5 name="camera" size={55} color="orange" />
+                            }
                         </TouchableOpacity>
-                    </View></View>
+                    </View>
+                </View>
 
                 <View style={{ flexDirection: 'row', marginTop: "10%" }}>
                     <View style={{ flex: 1 }}>
@@ -196,30 +347,43 @@ const PlantDetail = ({ route, navigation }) => {
         return (
             <View style={{ flex: 2.5, marginTop: SIZES.padding, paddingHorizontal: SIZES.padding, justifyContent: 'space-around' }}>
                 <RequirementDetail
+                    icon={icons.garden}
+                    label="Name" />
+                <UserInput
+                    value={plantName}
+                    setValue={setPlantName} />
+                
+                <RequirementDetail
                     icon={icons.sun}
                     label="Sunlight" />
                 <UserInput
-                    detail={"°C"} />
+                    detail={"°C"}
+                    value={sunlight}
+                    setValue={setSunlight} />
 
                 <RequirementDetail
                     icon={icons.drop}
                     label="Water" />
                 <UserInput
                     detail={"Every " + " Days"}
-                />
+                    value={water}
+                    setValue={setWater} />
 
                 <RequirementDetail
                     icon={icons.garden}
                     label="Soil" />
                 <UserInput
                     detail={" Kg"}
-                />
+                    value={soil}
+                    setValue={setSoil} />
+
                 <RequirementDetail
                     icon={icons.seed}
                     label="Fertilizer" />
                 <UserInput
                     detail={" Mg"}
-                />
+                    value={fertilizer}
+                    setValue={setFertilizer} />
             </View>
         )
     }
@@ -238,20 +402,7 @@ const PlantDetail = ({ route, navigation }) => {
                         borderBottomRightRadius: 30,
                         backgroundColor: COLORS.primary
                     }}
-                    onPress={async () => {
-                        dispatch(appendMyPlant(plant));
-                        const identifier = await NotificationManger.schedulePushNotification(
-                            {
-                                title: "Its time to water your " + " plant",
-                                body: "Please water your plant"
-                            },
-                            {
-                                minute: 2,
-                            },
-                            true,
-                        );
-                        navigation.navigate("Home")
-                    }}
+                    onPress={handleUpload}
                 >
                     <Text style={{ color: COLORS.white, ...FONTS.h2 }}>Upload</Text>
 
@@ -264,10 +415,10 @@ const PlantDetail = ({ route, navigation }) => {
     }
 
     return (
-        
-        
+
+
         <View style={styles.container}>
-            
+
             {/* Banner Photo */}
             <View style={{ height: "35%" }}>
                 <Image
@@ -303,14 +454,58 @@ const PlantDetail = ({ route, navigation }) => {
             {renderHeader()}
         </View>
     )
-    
+
 
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1
-    }
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 22,
+        zIndex: 5,
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 35,
+        alignItems: 'center',
+        shadowColor: 'grey',
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+    },
+    button: {
+        borderRadius: 50,
+        padding: 10,
+        elevation: 0,
+        marginVertical:5
+       
+    },
+    buttonOpen: {
+        backgroundColor: 'transparent',
+    },
+
+    buttonClose: {
+        backgroundColor: '#2196F3',
+    },
+    textStyle: {
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: 'center',
+    },
 })
 
 export default PlantDetail;

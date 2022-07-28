@@ -19,13 +19,6 @@ export const signIn = (user, token) => {
     }
 }
 
-export const appendMyPlant = (plant) => {
-    return {
-        type: "APPEND_MY_PLANT",
-        plant
-    }
-}
-
 export const appendPlantProfile = (plant) => {
     return {
         type: "APPEND_PLANT_PROFILE",

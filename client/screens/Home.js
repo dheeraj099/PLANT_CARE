@@ -27,39 +27,46 @@ const Home = ({ navigation }) => {
     return (
         
 
-        <><View style={styles.centeredView}>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    Alert.alert('Modal has been closed.');
-                    setModalVisible(!modalVisible);
-                } }>
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Pressable
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={() => { navigation.navigate("AddNewPlant") }}>
-                            <Text style={styles.textStyle}>Add New Plant</Text>
-                        </Pressable>
+        <View style={styles.container}>
+            <View style={styles.centeredView}>
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                        Alert.alert('Modal has been closed.');
+                        setModalVisible(!modalVisible);
+                    } }>
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <Pressable
+                                style={[styles.button, styles.buttonClose]}
+                                onPress={() => {
+                                    setModalVisible(!modalVisible);
+                                    navigation.navigate("AddNewPlant")
+                                }}>
+                                <Text style={styles.textStyle}>Add New Plant</Text>
+                            </Pressable>
 
-                        <Pressable
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={() => { navigation.navigate("AddPlant") }}>
-                            <Text style={styles.textStyle}>Add Existing Plant</Text>
-                        </Pressable>
+                            <Pressable
+                                style={[styles.button, styles.buttonClose]}
+                                onPress={() => {
+                                    setModalVisible(!modalVisible);
+                                    navigation.navigate("AddPlant")
+                                }}>
+                                <Text style={styles.textStyle}>Add Existing Plant</Text>
+                            </Pressable>
 
-                        <Pressable
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}>
-                            <Text style={styles.textStyle}>Hide Modal</Text>
-                        </Pressable>
+                            <Pressable
+                                style={[styles.button, styles.buttonClose]}
+                                onPress={() => setModalVisible(!modalVisible)}>
+                                <Text style={styles.textStyle}>Hide Modal</Text>
+                            </Pressable>
+                        </View>
                     </View>
-                </View>
-            </Modal>
+                </Modal>
 
-        </View><View style={styles.container}>
+            </View>
                 {/* New Plants */}
                 <View style={{ height: "30%", backgroundColor: COLORS.white }}>
                     <View style={{
@@ -81,8 +88,11 @@ const Home = ({ navigation }) => {
                                     justifyContent: 'center',
                                     backgroundColor: COLORS.gray,
                                 }}
-                                onPress={() => setModalVisible(true)}>
-                                                    
+                                onPress={() => {
+                                    console.log("Clicked on add plant")
+                                    setModalVisible(true)
+                                }}>
+                                                 
                             
                                 <Image
                                     source={icons.plus}
@@ -94,7 +104,7 @@ const Home = ({ navigation }) => {
                             </TouchableOpacity>
                         </View>
 
-                        <MyPlants />
+                        <MyPlants navigation={navigation} />
 
                     </View>
 
@@ -175,13 +185,20 @@ const Home = ({ navigation }) => {
                 <View style={{ flex: 1, justifyContent: "flex-end" }}>
                     <FooterTabs />
                 </View>
-            </View></>
+            </View>
                   
            
     );
 };
 
 const styles = StyleSheet.create({
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 22,
+        zIndex: 5,
+    },
     modalView: {
         margin: 20,
         backgroundColor: 'white',
@@ -195,7 +212,6 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        elevation: 5,
     },
     button: {
         borderRadius: 50,
