@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
     StyleSheet,
     View,
@@ -12,11 +12,29 @@ import Home from './Home';
 import { AuthContext } from '../context/auth';
 import { appendMyPlant } from '../Action';
 import * as NotificationManger from '../manager/NotificationManager'
+import UserInput from "../components/auth/UserInput";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+
+
+
+
+
+{/* Banner Photo */ }
+<View style={{ height: "35%" }}>
+    <Image
+        source={{}}
+        resizeMode="cover"
+        style={{
+            width: '100%',
+            height: '100%'
+        }}
+    />
+</View>
 
 
 const RequirementBar = ({ icon, barPercentage }) => {
+
     return (
-        
         <View style={{ height: 60, alignItems: 'center' }}>
             <View
                 style={{
@@ -53,6 +71,7 @@ const RequirementBar = ({ icon, barPercentage }) => {
                 }}
             ></View>
 
+
             <View
                 style={{
                     position: 'absolute',
@@ -67,6 +86,7 @@ const RequirementBar = ({ icon, barPercentage }) => {
         </View>
     )
 }
+
 
 const RequirementDetail = ({ icon, label, detail }) => {
     return (
@@ -91,10 +111,11 @@ const RequirementDetail = ({ icon, label, detail }) => {
     )
 }
 
-const PlantDetail = ({ route,navigation }) => {
+const PlantDetail = ({ route, navigation }) => {
+    
 
     const [state, dispatch] = useContext(AuthContext);
-    const {plant}=route.params;
+    // const {plant}=route.params;
 
     // Render
 
@@ -108,11 +129,12 @@ const PlantDetail = ({ route,navigation }) => {
                     right: SIZES.padding
                 }}
             >
-                <View style={{ flexDirection: 'row' }}>
+                <View style={{ flexDirection:'row' }}>
+                    
                     <View style={{ flex: 1 }}>
                         <TouchableOpacity
                             style={{ width: 40, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 20, backgroundColor: 'rgba(255,255,255,0.5)' }}
-                            onPress={() => { navigation.navigate("Home", newPlants) }}
+                            onPress={() => { navigation.navigate("Home") }}
                         >
                             <Image
                                 source={icons.back}
@@ -126,10 +148,16 @@ const PlantDetail = ({ route,navigation }) => {
                     </View>
 
                 </View>
+                <View style={{ alignItems:'center' }}>
+                    <View >
+                        <TouchableOpacity onPress={() => setModalVisible(true)}>
+                            <FontAwesome5 name="camera" size={55} color="orange" />
+                        </TouchableOpacity>
+                    </View></View>
 
                 <View style={{ flexDirection: 'row', marginTop: "10%" }}>
                     <View style={{ flex: 1 }}>
-                        <Text style={{ color: COLORS.white, ...FONTS.largeTitle }}>{plant.name}</Text>
+                        <Text style={{ color: COLORS.white, ...FONTS.largeTitle }}>{ }</Text>
                     </View>
                     <View style={{ flex: 1 }}></View>
                 </View>
@@ -169,24 +197,28 @@ const PlantDetail = ({ route,navigation }) => {
             <View style={{ flex: 2.5, marginTop: SIZES.padding, paddingHorizontal: SIZES.padding, justifyContent: 'space-around' }}>
                 <RequirementDetail
                     icon={icons.sun}
-                    label="Sunlight"
-                    detail={plant.sunlight+"°C"}
-                />
+                    label="Sunlight" />
+                <UserInput
+                    detail={"°C"} />
+
                 <RequirementDetail
                     icon={icons.drop}
-                    label="Water"
-                    detail={"Every " + plant.water + " Days"}
+                    label="Water" />
+                <UserInput
+                    detail={"Every " + " Days"}
                 />
 
                 <RequirementDetail
                     icon={icons.garden}
-                    label="Soil"
-                    detail={ plant.soil + " Kg"}
+                    label="Soil" />
+                <UserInput
+                    detail={" Kg"}
                 />
                 <RequirementDetail
                     icon={icons.seed}
-                    label="Fertilizer"
-                    detail={plant.fertilizer + " Mg"}
+                    label="Fertilizer" />
+                <UserInput
+                    detail={" Mg"}
                 />
             </View>
         )
@@ -210,7 +242,7 @@ const PlantDetail = ({ route,navigation }) => {
                         dispatch(appendMyPlant(plant));
                         const identifier = await NotificationManger.schedulePushNotification(
                             {
-                                title: "Its time to water your " + plant.name + " plant",
+                                title: "Its time to water your " + " plant",
                                 body: "Please water your plant"
                             },
                             {
@@ -218,45 +250,28 @@ const PlantDetail = ({ route,navigation }) => {
                             },
                             true,
                         );
-                        navigation.navigate("Home" )
+                        navigation.navigate("Home")
                     }}
                 >
-                    <Text style={{ color: COLORS.white, ...FONTS.h2 }}>Add plant</Text>
+                    <Text style={{ color: COLORS.white, ...FONTS.h2 }}>Upload</Text>
 
-                    <Image
-                        source={icons.chevron}
-                        resizeMode="contain"
-                        style={{
-                            marginLeft: SIZES.padding,
-                            width: 20,
-                            height: 20
-                        }}
-                    />
+
                 </TouchableOpacity>
 
-                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingHorizontal: SIZES.padding }}>
-                    <Text style={{ flex: 1, color: COLORS.secondary, ...FONTS.h3 }}>Almost 2 weeks of growing time</Text>
-                    <Image
-                        source={icons.downArrow}
-                        resizeMode="contain"
-                        style={{
-                            tintColor: COLORS.secondary,
-                            marginLeft: SIZES.base,
-                            width: 20,
-                            height: 20
-                        }}
-                    />
-                </View>
+
             </View>
         )
     }
 
     return (
+        
+        
         <View style={styles.container}>
+            
             {/* Banner Photo */}
             <View style={{ height: "35%" }}>
                 <Image
-                    source={{ uri: plant.image }}
+                    source={{}}
                     resizeMode="cover"
                     style={{
                         width: '100%',
@@ -264,9 +279,6 @@ const PlantDetail = ({ route,navigation }) => {
                     }}
                 />
             </View>
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
-<FontAwesome5 name="camera" size={25} color="orange" />
-</TouchableOpacity>
 
             {/* Requirements */}
             <View
@@ -291,6 +303,7 @@ const PlantDetail = ({ route,navigation }) => {
             {renderHeader()}
         </View>
     )
+    
 
 }
 

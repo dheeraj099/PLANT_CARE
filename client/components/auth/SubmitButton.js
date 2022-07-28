@@ -15,8 +15,8 @@ const SubmitButton = ({ title, handleSubmit, loading }) => (
 
     }}>
     <Text bold medium center>
-        {loading ? "please wait..." : title}
-        </Text>
+        {loading === true ? "please wait..." : title}
+    </Text>
 </TouchableOpacity>
 
 );

@@ -11,11 +11,12 @@ import Links from '../../screens/Links';
 import PlantDetail from '../../screens/PlantDetail';
 import AddPlant from '../../screens/AddPlant';
 import SelectPlant from '../../screens/SelectPlant';
+import AddNewPlant from '../../screens/AddNewPlant'
 
 const Stack = createNativeStackNavigator();
 
 export default function ScreensNav() {
-    const [state, setState] = useContext(AuthContext);
+    const [state, dispatch] = useContext(AuthContext);
 
     const authenticated = state && state.token !== "" && state.user !== null;
     
@@ -53,6 +54,13 @@ export default function ScreensNav() {
               <Stack.Screen 
                 name="Account" 
                 component={Account} 
+                options={{
+                  headerBackTitle: "Back",
+                }} 
+              />
+              <Stack.Screen 
+                name="AddNewPLant" 
+                component={AddNewPlant} 
                 options={{
                   headerBackTitle: "Back",
                 }} 

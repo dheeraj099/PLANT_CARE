@@ -11,6 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from "../context/auth";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import * as ImagePicker from 'expo-image-picker';
+import { signIn } from "../Action";
 
 const Account = ({navigation}) => {
     const [name, setName] = useState("")
@@ -22,7 +23,7 @@ const Account = ({navigation}) => {
     const [uploadImage, setUploadImage] = useState("");
     const [image, setImage] = useState({url: "", public_id:""});
     //context
-    const [state, setState] = useContext(AuthContext);
+    const [state, dispatch] = useContext(AuthContext);
 
     useEffect(() => {
         if(state) {
@@ -51,7 +52,7 @@ const handleSubmit = async () => {
             alert(data.error);
             setLoading(false);
         } else {
-            setState(data);
+            dispatch(signIn(data.user, data.token));
             await AsyncStorage.setItem('@auth', JSON.stringify(data))
             setLoading(false);
             console.log("SIGN IN SUCCESS =>", data);

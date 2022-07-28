@@ -1,13 +1,31 @@
 
 import User from "../models/user";
+const jwt = require("jsonwebtoken");
 import { hashPassword, comparePassword } from "../helpers/auth";
-import jwt from "jsonwebtoken";
 import nanoid from "nanoid";
+const expressJwt = require("express-jwt");
+const cloudinary = require("cloudinary");
+
 
 // sendgrid
 require("dotenv").config();
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_KEY);
+
+// cloudinary
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME ,
+  api_key: process.env.CLOUDINARY_Key,
+  api_secret: process.env.CLOUDINARY_SECRET,
+});
+
+//midleware
+export const requireSignin = expressJwt ({
+  secret: process.env.JWT_SECRET,
+  algorithms: ["HS256"],
+});
+
 
 export const signup = async (req, res) => {
   console.log("HIT SIGNUP");
@@ -155,3 +173,19 @@ export const resetPassword = async (req, res) => {
     console.log(err);
   }
 };
+  export const  uploadImage = async (req, res ) => {
+    // console.log("upload image > user_id", req.user._id);
+
+    try{
+      const result = cloudinary.uploader.upload(req.body.image, {
+        public_id: nanoid (),
+        resource_type: "jpg"
+      });
+
+      console.log("CLOUDINARY RESULT =>", result);
+
+    }catch (err) {
+      console.log(err)
+    }
+
+  }

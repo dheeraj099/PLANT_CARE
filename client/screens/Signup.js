@@ -8,6 +8,8 @@ import CircleLogo from "../components/auth/CircleLogo";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from "../context/auth";
+import { API } from "../config";
+
 
 const Signup = ({ navigation }) => {
     const [name, setName] = useState("Dheeraj");
@@ -15,7 +17,7 @@ const Signup = ({ navigation }) => {
     const [password, setPassword] = useState("12345678"); 
     const [loading, setLoading] = useState("false");
 
-    const [state, setState] = useContext(AuthContext);
+    const [state, dispatch] = useContext(AuthContext);
 
     // console.log("NAVIGATION ->", navigation);
 
@@ -29,7 +31,7 @@ const Signup = ({ navigation }) => {
         //console.log("SIGNUP REQUEST => ", name, email, password);
 
         try {
-            const {data} = await axios.post("http://192.168.29.221:8000/api/Signup", {
+            const {data} = await axios.post( API + "/Signup", {
                 name, 
                 email, 
                 password,

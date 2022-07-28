@@ -8,13 +8,16 @@ import CircleLogo from "../components/auth/CircleLogo";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from "../context/auth";
+import { signIn } from "../Action";
+import { API } from "../config";
+
 
 const Signin = ({navigation}) => {
     const [email, setEmail] = useState("dheerajpgirish@gmail.com");
     const [password, setPassword] = useState("12345678"); 
-    const [loading, setLoading] = useState("true");
+    const [loading, setLoading] = useState(false);
 
-    const [state, setState] = useContext(AuthContext);
+    const [state, dispatch] = useContext(AuthContext);
 
     const handleSubmit = async () => {
         setLoading(true);
@@ -23,17 +26,18 @@ const Signin = ({navigation}) => {
             setLoading(false);
             return;
         }
-        //console.log("SIGNIN REQUEST => ", name, email, password);
+        console.log("SIGNIN REQUEST => ", email, password);
         try  {
-            const {data} =await axios.post("http://192.168.29.221:8000/api/Signin", {
+            const {data} =await axios.post( API+ "/Signin", {
                 email, 
                 password,
             });
+            console.log("SignIn response: " + JSON.stringify(data))
             if(data.error) {
                 alert(data.error);
                 setLoading(false);
         } else {
-            setState(data);
+            dispatch(signIn(data.user, data.token));
             await AsyncStorage.setItem('@auth', JSON.stringify(data))
             setLoading(false);
             console.log("SIGN IN SUCCESS =>", data);

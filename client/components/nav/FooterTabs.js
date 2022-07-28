@@ -58,7 +58,7 @@ export default function FooterTabs() {
                 routeName={route.name}
             />
             <Tab 
-                text="Links" 
+                text="Scan" 
                 name="list-ol" 
                 handlePress={() => navigation.navigate("Links")}
                 ScreenName="Links"

@@ -4,18 +4,19 @@ import  Text  from "@kaloraat/react-native-text";
 import { AuthContext } from "../../context/auth";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { signOut } from "../../Action";
 
 const HeaderTabs =() => {
-    const [state, setState] = useContext(AuthContext);
+    const [state, dispatch] = useContext(AuthContext);
 
-    const signOut = async () => {
-        setState({token: '', user: null});
+    const handleSignOut = async () => {
+        dispatch(signOut);
         await AsyncStorage.removeItem('@auth');
     };
 
     return(
         <SafeAreaView>
-            <TouchableOpacity onPress={signOut}>
+            <TouchableOpacity onPress={handleSignOut}>
                 <FontAwesome5 name="sign-out-alt" size={25} color="#ff9900"/>
             </TouchableOpacity>
         </SafeAreaView>
