@@ -1,15 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
     StyleSheet,
     View,
     Text,
-    Image
+    Image,
+    ScrollView
 } from 'react-native';
 
 import { icons, images, COLORS, SIZES, FONTS } from '../constants';
 import { TouchableOpacity } from 'react-native';
 import Home from './Home';
 import { AuthContext } from '../context/auth';
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 // import { appendMyPlant } from '../Action';
 // import * as NotificationManger from '../manager/NotificationManager'
 
@@ -93,6 +96,7 @@ const RequirementDetail = ({ icon, label, detail }) => {
 
 const PlantDetail = ({ route,navigation }) => {
 
+    const [isEditing, setEditing] = useState()
     const [state, dispatch] = useContext(AuthContext);
     const {plant}=route.params;
 
@@ -119,7 +123,7 @@ const PlantDetail = ({ route,navigation }) => {
                                 resizeMode="contain"
                                 style={{
                                     width: 20,
-                                    height: 20
+                                    height: 20,
                                 }}
                             />
                         </TouchableOpacity>
@@ -166,7 +170,27 @@ const PlantDetail = ({ route,navigation }) => {
 
     function renderRequirements() {
         return (
-            <View style={{ flex: 2.5, marginTop: SIZES.padding, paddingHorizontal: SIZES.padding, justifyContent: 'space-around' }}>
+            <View style={{ flex: 3, marginTop: SIZES.padding, paddingHorizontal: SIZES.padding, justifyContent: 'space-around' }}>
+                {/* {
+                    isEditing ?
+                    <> 
+                        <RequirementDetail
+                            icon={icons.sun}
+                            label="Sunlight"
+                            detail={plant.sunlight+"°C"}
+                        />
+                        <UserInput />
+                    </>
+                    :
+                    <RequirementDetail
+                        icon={icons.sun}
+                        label="Sunlight"
+                        detail={plant.sunlight+"°C"}
+                    />
+                } */}
+                
+                
+                
                 <RequirementDetail
                     icon={icons.sun}
                     label="Sunlight"
@@ -194,12 +218,12 @@ const PlantDetail = ({ route,navigation }) => {
 
     function renderFooter() {
         return (
-            <View style={{ flex: 1, flexDirection: 'row', paddingVertical: SIZES.padding }}>
-                <TouchableOpacity
+            <View style={{ flex: 1, justifyContent:'flex-end'}}>
+                {/* <TouchableOpacity
                     style={{
                         flex: 1,
                         flexDirection: 'row',
-                        paddingHorizontal: SIZES.padding,
+                        // paddingHorizontal: SIZES.padding,
                         alignItems: 'center',
                         justifyContent: 'center',
                         borderTopRightRadius: 30,
@@ -232,20 +256,52 @@ const PlantDetail = ({ route,navigation }) => {
                             height: 20
                         }}
                     />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+                
+                
 
-                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingHorizontal: SIZES.padding }}>
-                    <Text style={{ flex: 1, color: COLORS.secondary, ...FONTS.h3 }}>Almost 2 weeks of growing time</Text>
-                    <Image
-                        source={icons.downArrow}
+                <View style={{ flex: 0.8, flexDirection: 'row-reverse'}}>
+                <TouchableOpacity
+                    style={{
+                        flex:1,
+                        flexDirection: 'row',
+                        paddingHorizontal: SIZES.padding,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        borderTopRightRadius: 80,
+                        borderBottomRightRadius: 80,
+                        borderTopLeftRadius:80,
+                        borderBottomLeftRadius:80,
+                        backgroundColor: 'red',
+                        marginBottom:20
+                    }}
+                    onPress={async () => {
+                        // dispatch(appendMyPlant(plant));
+                        // const identifier = await NotificationManger.schedulePushNotification(
+                        //     {
+                        //         title: "Its time to water your " + plant.name + " plant",
+                        //         body: "Please water your plant"
+                        //     },
+                        //     {
+                        //         minute: 2,
+                        //     },
+                        //     true,
+                        // );
+                        navigation.navigate("Home" )
+                    }}
+                >
+                    <Text style={{ color: COLORS.white, ...FONTS.h2, }}>Remove Plant</Text>
+
+                    {/* <Image
+                        source={icons.chevron}
                         resizeMode="contain"
                         style={{
-                            tintColor: COLORS.secondary,
-                            marginLeft: SIZES.base,
+                            marginLeft: SIZES.padding,
                             width: 20,
                             height: 20
                         }}
-                    />
+                    /> */}
+                </TouchableOpacity>
                 </View>
             </View>
         )
@@ -273,13 +329,34 @@ const PlantDetail = ({ route,navigation }) => {
                 style={{
                     flex: 1,
                     marginTop: -40,
+                    marginBottom:-45,
                     backgroundColor: COLORS.lightGray,
                     borderTopLeftRadius: 40,
                     borderTopRightRadius: 40,
-                    paddingVertical: SIZES.padding
+                    paddingVertical: SIZES.padding,
+                    
                 }}
             >
-                <Text style={{ paddingHorizontal: SIZES.padding, color: COLORS.secondary, ...FONTS.h1 }}>Requirements</Text>
+                <Text style={{ paddingHorizontal: SIZES.padding, color: COLORS.secondary, ...FONTS.h1,  }}>Requirements</Text>
+
+                <TouchableOpacity
+                            style={{ width: 40, height: 40, alignItems: 'center', justifyContent:'space-around', borderRadius: 20, alignSelf:'flex-end' }}
+                            onPress={() =>{
+                                navigation.navigate("AddNewPlant",) }
+                            } 
+                        >
+                            <Image
+                                source={icons.edit}
+                                resizeMode="contain"
+                                style={{
+                                    alignSelf:'flex-end',
+                                    right:0,                                    
+                                    width: 30,
+                                    height: 30,
+                                }}
+                            />
+                        </TouchableOpacity>
+                    
 
                 {renderRequirementsBar()}
 
@@ -287,6 +364,8 @@ const PlantDetail = ({ route,navigation }) => {
 
                 {renderFooter()}
             </View>
+           
+            
 
             {renderHeader()}
         </View>

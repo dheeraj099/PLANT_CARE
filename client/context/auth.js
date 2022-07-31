@@ -27,16 +27,11 @@ const AuthProvider = ({children}) => {
             const savedPlantProfiles = await AsyncStorage.getItem("@plantProfiles");
             const plantProfiles = savedPlantProfiles ? JSON.parse(savedPlantProfiles) : [];
             console.log("loading plant profiles" + savedPlantProfiles)
-
-            const savedMyPlants = await AsyncStorage.getItem("@myPlants");
-            const myPlants = savedMyPlants ? JSON.parse(savedMyPlants) : [];
-            console.log("loading my plants" + savedMyPlants)
             
             const newstate =  {
                 user: as ? as.user : null,
                 token: as ? as.token : "",
                 plantProfiles: plantProfiles,
-                myPlants: myPlants,
             };
             console.log("saving new state: "+JSON.stringify(newstate))
             return newstate;

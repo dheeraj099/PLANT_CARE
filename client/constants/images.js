@@ -11,6 +11,7 @@ export const profile3 = require("../assets/images/profile_3.jpg");
 export const profile4 = require("../assets/images/profile_4.jpg");
 export const profile5 = require("../assets/images/profile_5.jpg");
 export const bannerBg = require("../assets/images/tomato.jpg");
+export const green_texture = require("../assets/images/green_texture.jpg");
 
 
 export default {
@@ -26,5 +27,6 @@ export default {
     profile3,
     profile4,
     profile5,
-    bannerBg
+    bannerBg,
+    green_texture
 }

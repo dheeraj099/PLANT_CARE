@@ -18,6 +18,7 @@ import { Modal } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import { appendPlantProfile } from '../Action';
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 {/* Banner Photo */ }
 <View style={{ height: "35%" }}>
@@ -111,7 +112,11 @@ const RequirementDetail = ({ icon, label, detail }) => {
     )
 }
 
-const PlantDetail = ({ navigation }) => {
+const PlantDetail = ({ navigation,route }) => {
+
+    if (route.params){
+        console.log(route.params)
+    }
 
 
     const [state, dispatch] = useContext(AuthContext);
@@ -140,6 +145,7 @@ const PlantDetail = ({ navigation }) => {
         if (!result.cancelled) {
             setUploadImage(result.uri);
             console.log("Camera image location:" + result.uri);
+            setPlantModalVisible(false);
         }
     }
 
@@ -163,6 +169,7 @@ const PlantDetail = ({ navigation }) => {
         }
         setUploadImage(pickerResult.uri);
         console.log("Upload image location:" + pickerResult.uri);
+        setPlantModalVisible(false);
     };
 
     const validateNewPlant = (plant) => {
@@ -230,11 +237,11 @@ const PlantDetail = ({ navigation }) => {
             <View
                 style={{
                     position: 'absolute',
-                    top: 50,
+                    top: 20,
                     left: SIZES.padding,
                     right: SIZES.padding
                 }}
-            >
+            > 
                 <View style={styles.centeredView}>
                     <Modal
                         animationType="slide"
@@ -294,9 +301,9 @@ const PlantDetail = ({ navigation }) => {
                                 <Image
                                     source={{ uri: uploadImage }}
                                     style={{
-                                        width: 190,
-                                        height: 190,
-                                        // borderRadius: 100,
+                                        width: 100,
+                                        height: 100,
+                                        borderRadius: 100,
                                         marginVertical: 20
                                     }}
                                 />
@@ -345,7 +352,7 @@ const PlantDetail = ({ navigation }) => {
 
     function renderRequirements() {
         return (
-            <View style={{ flex: 2.5, marginTop: SIZES.padding, paddingHorizontal: SIZES.padding, justifyContent: 'space-around' }}>
+            <KeyboardAwareScrollView style={{ flex: 1, marginTop: SIZES.padding, paddingHorizontal: SIZES.padding, }}>
                 <RequirementDetail
                     icon={icons.garden}
                     label="Name" />
@@ -384,13 +391,13 @@ const PlantDetail = ({ navigation }) => {
                     detail={" Mg"}
                     value={fertilizer}
                     setValue={setFertilizer} />
-            </View>
+            </KeyboardAwareScrollView>
         )
     }
 
     function renderFooter() {
         return (
-            <View style={{ flex: 1, flexDirection: 'row', paddingVertical: SIZES.padding }}>
+            <View style={{ flex:0.25, flexDirection: 'row', paddingVertical: SIZES.padding, alignSelf:'flex-end'}}>
                 <TouchableOpacity
                     style={{
                         flex: 1,
@@ -459,14 +466,12 @@ const PlantDetail = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
+
     centeredView: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 22,
+        marginTop: 10,
         zIndex: 5,
     },
     modalView: {
@@ -478,10 +483,10 @@ const styles = StyleSheet.create({
         shadowColor: 'grey',
         shadowOffset: {
             width: 0,
-            height: 5,
+            height: 0,
         },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
+        shadowOpacity: 0,
+        shadowRadius: 0,
     },
     button: {
         borderRadius: 50,
@@ -501,11 +506,16 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center',
+     
     },
     modalText: {
         marginBottom: 15,
         textAlign: 'center',
     },
+    container: {
+        flex: 1
+    },
+
 })
 
 export default PlantDetail;

@@ -20,7 +20,9 @@ import { useState } from 'react';
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 
+
 const Home = ({ navigation }) => {
+
     
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -44,6 +46,7 @@ const Home = ({ navigation }) => {
                                 onPress={() => {
                                     setModalVisible(!modalVisible);
                                     navigation.navigate("AddNewPlant")
+                                    // dispatch(loadState({plantProfiles: [], myPlants:[]}));
                                 }}>
                                 <Text style={styles.textStyle}>Add New Plant</Text>
                             </Pressable>
@@ -70,7 +73,7 @@ const Home = ({ navigation }) => {
                 {/* New Plants */}
                 <View style={{ height: "30%", backgroundColor: COLORS.white }}>
                     <View style={{
-                        flex: 9,
+                        flex: 1,
                         borderBottomLeftRadius: 50,
                         borderBottomRightRadius: 50,
                         backgroundColor: COLORS.primary,
@@ -104,7 +107,16 @@ const Home = ({ navigation }) => {
                             </TouchableOpacity>
                         </View>
 
-                        <MyPlants navigation={navigation} />
+                        <View style={{ alignItems:'center', flex:2, marginHorizontal: SIZES.padding }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', alignSelf:'flex-start' }}>
+                                <Text style ={{ color: COLORS.white, ...FONTS.h2, }}>"If you have a garden and a library, you have everything you need". </Text> 
+                            </View>
+                            <View>
+                                <View>                         
+                                    <Text style ={{ color: COLORS.white, ...FONTS.h3,  textAlign:'right' }}> – Marcus Tullius Cicero</Text>
+                                </View>
+                            </View>
+                        </View>
 
                     </View>
 
@@ -112,73 +124,18 @@ const Home = ({ navigation }) => {
 
 
                 {/* feed */}
-                <View style={{ height: "50%", backgroundColor: COLORS.lightGray }}>
+                <View style={{ height: "60%", backgroundColor: COLORS.lightGray }}>
                     <View style={{
                         flex: 1,
                         borderBottomLeftRadius: 50,
                         borderBottomRightRadius: 50,
                         backgroundColor: COLORS.white
                     }}>
-                        <View style={{ marginTop: SIZES.font, marginHorizontal: SIZES.padding }}>
-                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                                <Text style={{ color: COLORS.secondary, ...FONTS.h1, }}>My plants</Text>
 
+                        <MyPlants navigation={navigation} />
 
-                            </View>
-
-                            <View style={{ flexDirection: 'row', height: "88%", marginTop: SIZES.base }}>
-                                <View style={{ flex: 1 }}>
-                                    <TouchableOpacity
-                                        style={{ flex: 1 }}
-                                        onPress={() => { navigation.navigate("PlantDetail"); } }
-                                    >
-                                        <Image
-                                            source={images.plant5}
-                                            resizeMode="cover"
-                                            style={{
-                                                width: '100%',
-                                                height: '100%',
-                                                borderRadius: 20
-                                            }} />
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity
-                                        style={{ flex: 1, marginTop: SIZES.font }}
-                                        onPress={() => { navigation.navigate("PlantDetail"); } }
-                                    >
-                                        <Image
-                                            source={images.plant6}
-                                            resizeMode="cover"
-                                            style={{
-                                                width: '100%',
-                                                height: '100%',
-                                                borderRadius: 20
-                                            }} />
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={{ flex: 1.3 }}>
-                                    <TouchableOpacity
-                                        style={{ flex: 1, marginLeft: SIZES.font }}
-                                        onPress={() => { navigation.navigate("PlantDetail"); } }
-                                    >
-                                        <Image
-                                            source={images.plant7}
-                                            resizeMode="cover"
-                                            style={{
-                                                width: '100%',
-                                                height: '100%',
-                                                borderRadius: 20
-                                            }} />
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
                     </View>
                 </View>
-
-
-
- 
 
 
 
@@ -193,10 +150,10 @@ const Home = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     centeredView: {
-        flex: 1,
+        // flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 22,
+        // marginTop: 22,
         zIndex: 5,
     },
     modalView: {
