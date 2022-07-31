@@ -15,7 +15,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { removePlantProfile } from '../Action';
 
 // import { appendMyPlant } from '../Action';
-// import * as NotificationManger from '../manager/NotificationManager'
+import * as NotificationManger from '../manager/NotificationManager'
 
 
 const RequirementBar = ({ icon, barPercentage }) => {
@@ -288,9 +288,9 @@ const PlantDetail = ({ route,navigation }) => {
                         //     },
                         //     true,
                         // );
+                        await NotificationManger.cancelScheduledPushNotification(plant.notificationId);
                         dispatch(removePlantProfile(plant))
-                        navigation.navigate("Home" )
-                        console.log("remove plant");
+                        navigation.navigate("Home" );
                     }}
                 >
                     <Text style={{ color: COLORS.white, ...FONTS.h2, }}>Remove Plant</Text>
@@ -345,7 +345,8 @@ const PlantDetail = ({ route,navigation }) => {
                 <TouchableOpacity
                             style={{ width: 40, height: 40, alignItems: 'center', justifyContent:'space-around', borderRadius: 20, alignSelf:'flex-end' }}
                             onPress={() =>{
-                                navigation.navigate("AddNewPlant",) }
+                                console.log("opening AddNewPlant with " + JSON.stringify(plant));
+                                navigation.navigate("AddNewPlant", plant) }
                             } 
                         >
                             <Image

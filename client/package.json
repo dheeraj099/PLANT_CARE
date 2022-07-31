@@ -55,6 +55,7 @@
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-paper": "^4.12.3",
     "react-native-sqlite-storage": "^6.0.1",
+    "react-native-uuid": "^2.0.1",
     "react-native-web": "0.17.7",
     "reanimated-bottom-sheet": "^1.0.0-alpha.22",
     "use-theme": "^0.1.5"

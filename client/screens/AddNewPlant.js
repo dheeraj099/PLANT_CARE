@@ -17,8 +17,9 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { Modal } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
-import { appendPlantProfile } from '../Action';
+import { appendPlantProfile, updatePlantProfile } from '../Action';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import uuid from 'react-native-uuid';
 
 {/* Banner Photo */ }
 <View style={{ height: "35%" }}>
@@ -112,11 +113,22 @@ const RequirementDetail = ({ icon, label, detail }) => {
     )
 }
 
-const PlantDetail = ({ navigation,route }) => {
-
-    if (route.params){
-        console.log(route.params)
-    }
+const PlantDetail = ({ route, navigation }) => {
+    const plant = route.params;
+    
+    React.useEffect(() => {
+        console.log("Route params " + JSON.stringify(route.params))
+        if (route.params && isEditing === false){
+            setEditing(true);
+            setPlantName(plant.name);
+            setWater(plant.water)
+            setSunlight(plant.sunlight)
+            setFertilizer(plant.fertilizer)
+            setSoil(plant.soil)
+            setUploadImage(plant.image)
+            console.log("Setting all params with " + JSON.stringify(plant))
+        }
+    });
 
 
     const [state, dispatch] = useContext(AuthContext);
@@ -127,6 +139,7 @@ const PlantDetail = ({ navigation,route }) => {
     const [fertilizer, setFertilizer] = useState();
     const [soil, setSoil] = useState();
     const [uploadImage, setUploadImage] = useState();
+    const [isEditing, setEditing] = useState(false);
 
     const openCamera = async () => {
         // Ask the user for the permission to access the camera
@@ -201,13 +214,20 @@ const PlantDetail = ({ navigation,route }) => {
         }
 
         try {
-            const localImageLocation = FileSystem.documentDirectory + newPlant.name + ".jpg";
+            console.log("New image location " + newPlant.image)
+            const localImageLocation = FileSystem.documentDirectory + newPlant.name + "-" + uuid.v4() + ".jpg";
+            if (plant) {
+                console.log("Deleting old image : " + plant.image)
+                await FileSystem.deleteAsync(plant.image)
+            }
             await FileSystem.copyAsync({
                 from: newPlant.image,
                 to: localImageLocation,
             });
             newPlant.image = localImageLocation;
 
+
+            
             const identifier = await NotificationManger.schedulePushNotification(
                 {
                     title: "Its time to water your " + newPlant.name + " plant",
@@ -218,10 +238,19 @@ const PlantDetail = ({ navigation,route }) => {
                 },
                 true,
             );
+
+            if (plant) {
+                await NotificationManger.cancelScheduledPushNotification(plant.notificationId)
+            }
             newPlant.notificationId = identifier;
 
-            dispatch(appendPlantProfile(newPlant))
-
+            if (plant) {
+                dispatch(updatePlantProfile(newPlant))
+            }
+            else {
+                dispatch(appendPlantProfile(newPlant))
+            }
+            
             // setLoading(false);
             navigation.navigate("Home")
         } catch (err) {
@@ -491,7 +520,7 @@ const styles = StyleSheet.create({
     button: {
         borderRadius: 50,
         padding: 10,
-        elevation: 0,
+        // elevation: 0,
         marginVertical:5
        
     },
