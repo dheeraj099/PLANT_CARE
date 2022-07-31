@@ -12,6 +12,7 @@ import { TouchableOpacity } from 'react-native';
 import Home from './Home';
 import { AuthContext } from '../context/auth';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { removePlantProfile } from '../Action';
 
 // import { appendMyPlant } from '../Action';
 // import * as NotificationManger from '../manager/NotificationManager'
@@ -287,7 +288,9 @@ const PlantDetail = ({ route,navigation }) => {
                         //     },
                         //     true,
                         // );
+                        dispatch(removePlantProfile(plant))
                         navigation.navigate("Home" )
+                        console.log("remove plant");
                     }}
                 >
                     <Text style={{ color: COLORS.white, ...FONTS.h2, }}>Remove Plant</Text>

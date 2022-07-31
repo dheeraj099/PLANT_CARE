@@ -17,7 +17,24 @@ const plantReducer = (state, action) => {
             AsyncStorage.setItem('@plantProfiles', JSON.stringify(newPlantProfiles))
             return {...state, plantProfiles: newPlantProfiles};
 
-            
+        case "REMOVE_PLANT_PROFILE":
+            const removePlantProfiles = state.plantProfiles.filter(function(value, index, arr){ 
+            return value.name == action.plant.name;
+            console.log("remove plant" +JSON.stringify(value.name))
+            });
+            console.log("new plant profile" +JSON.stringify(newPlantProfiles))
+            AsyncStorage.setItem('@plantProfiles', JSON.stringify(newPlantProfiles))
+            return {...state, plantProfiles: newPlantProfiles};    
+
+        case "UPDATE_PLANT_PROFILE":
+        const updatePlantProfiles = state.plantProfiles.map((element, index) => {
+            if (element.name === action.plant.name)
+            return action.plant;
+            return element;
+            });    
+            console.log("new plant profile" +JSON.stringify(newPlantProfiles))
+            AsyncStorage.setItem('@plantProfiles', JSON.stringify(newPlantProfiles))
+            return {...state, plantProfiles: newPlantProfiles};
         default:
             return state;
     }

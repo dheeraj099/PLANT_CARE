@@ -27,7 +27,13 @@ export const appendPlantProfile = (plant) => {
 }
 export const removePlantProfile = (plant) => {
     return {
-        type: "APPEND_PLANT_PROFILE",
+        type: "REMOVE_PLANT_PROFILE",
+        plant
+    }
+}
+export const updatePlantProfile = (plant) => {
+    return {
+        type: "UPDATE_PLANT_PROFILE",
         plant
     }
 }
