@@ -146,8 +146,11 @@ const handleUpload = async () => {
                 <Text medium center style={{paddingBottom: 10 }}>
                     {email}
                 </Text>
-                <Text small center light style={{paddingBottom: 50 }}>
+                {/* <Text small center light style={{paddingBottom: 50 }}>
                     {role}
+                </Text> */}
+                <Text>
+                    {'\n'}
                 </Text>
 
           

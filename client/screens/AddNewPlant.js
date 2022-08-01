@@ -5,7 +5,8 @@ import {
     Text,
     Image,
     Pressable,
-    Alert
+    Alert,
+    ScrollView
 } from 'react-native';
 
 import { icons, COLORS, SIZES, FONTS } from '../constants';
@@ -216,14 +217,20 @@ const PlantDetail = ({ route, navigation }) => {
         try {
             console.log("New image location " + newPlant.image)
             const localImageLocation = FileSystem.documentDirectory + newPlant.name + "-" + uuid.v4() + ".jpg";
-            if (plant) {
-                console.log("Deleting old image : " + plant.image)
-                await FileSystem.deleteAsync(plant.image)
-            }
+            // if (plant) {
+            //     console.log("Deleting old image : " + plant.image)
+            //     await FileSystem.deleteAsync(plant.image)
+            // }
             await FileSystem.copyAsync({
                 from: newPlant.image,
                 to: localImageLocation,
             });
+
+            if (plant) {
+                console.log("Deleting old image : " + plant.image)
+                await FileSystem.deleteAsync(plant.image)
+            }
+            
             newPlant.image = localImageLocation;
 
 
@@ -263,7 +270,7 @@ const PlantDetail = ({ route, navigation }) => {
     // Render
     function renderHeader() {
         return (
-            <View
+            <ScrollView
                 style={{
                     position: 'absolute',
                     top: 20,
@@ -297,7 +304,7 @@ const PlantDetail = ({ route, navigation }) => {
                                 <Pressable
                                     style={[styles.button, styles.buttonClose]}
                                     onPress={() => setPlantModalVisible(!plantModalVisible)}>
-                                    <Text style={styles.textStyle}>Hide Modal</Text>
+                                    <Text style={styles.textStyle}>Close</Text>
                                 </Pressable>
                             </View>
                         </View>
@@ -348,7 +355,7 @@ const PlantDetail = ({ route, navigation }) => {
                     </View>
                     <View style={{ flex: 1 }}></View>
                 </View>
-            </View>
+            </ScrollView>
         )
     }
 
@@ -497,13 +504,15 @@ const PlantDetail = ({ route, navigation }) => {
 const styles = StyleSheet.create({
 
     centeredView: {
-        flex: 1,
+        // position:'absolute',
+        flex: 15,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 10,
+        marginTop: 45,
         zIndex: 5,
     },
     modalView: {
+        position:'absolute',
         margin: 20,
         backgroundColor: 'white',
         borderRadius: 20,
@@ -520,7 +529,7 @@ const styles = StyleSheet.create({
     button: {
         borderRadius: 50,
         padding: 10,
-        // elevation: 0,
+        elevation: 0,
         marginVertical:5
        
     },
@@ -531,7 +540,7 @@ const styles = StyleSheet.create({
     buttonClose: {
         backgroundColor: '#2196F3',
     },
-    textStyle: {
+    textStyle: {        
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center',

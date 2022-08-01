@@ -5,7 +5,8 @@ import {
     Text,
     TouchableOpacity,
     Image,
-    FlatList
+    FlatList,
+    ScrollView,
 } from 'react-native';
 import { images, icons, COLORS, FONTS, SIZES } from '../constants';
 import { AuthContext } from '../context/auth';
