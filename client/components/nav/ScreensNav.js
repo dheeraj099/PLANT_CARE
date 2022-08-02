@@ -9,7 +9,7 @@ import Account from '../../screens/Account';
 import Post from '../../screens/Post';
 import Links from '../../screens/Links';
 import PlantDetail from '../../screens/PlantDetail';
-import AddPlant from '../../screens/AddPlant';
+// import AddPlant from '../../screens/AddPlant';
 import SelectPlant from '../../screens/SelectPlant';
 import AddNewPlant from '../../screens/AddNewPlant'
 
@@ -41,11 +41,11 @@ export default function ScreensNav() {
                 options={{ headerShown: false }} 
                 />
                
-                <Stack.Screen 
+                {/* <Stack.Screen 
                 name="AddPlant" 
                 component={AddPlant} 
                 options={{ headerShown: false }} 
-                />
+                /> */}
                 <Stack.Screen 
                 name="SelectPlant" 
                 component={SelectPlant} 

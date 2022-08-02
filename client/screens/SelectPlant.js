@@ -334,8 +334,8 @@ const PlantDetail = ({ route,navigation }) => {
                     marginTop: -40,
                     marginBottom:-45,
                     backgroundColor: COLORS.lightGray,
-                    borderTopLeftRadius: 40,
-                    borderTopRightRadius: 40,
+                    borderTopLeftRadius: 0,
+                    borderTopRightRadius: 0,
                     paddingVertical: SIZES.padding,
                     
                 }}

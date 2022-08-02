@@ -50,16 +50,6 @@ const Home = ({ navigation }) => {
                                 }}>
                                 <Text style={styles.textStyle}>Add New Plant</Text>
                             </Pressable>
-
-                            <Pressable
-                                style={[styles.button, styles.buttonClose]}
-                                onPress={() => {
-                                    setModalVisible(!modalVisible);
-                                    navigation.navigate("AddPlant")
-                                }}>
-                                <Text style={styles.textStyle}>Add Existing Plant</Text>
-                            </Pressable>
-
                             <Pressable
                                 style={[styles.button, styles.buttonClose]}
                                 onPress={() => setModalVisible(!modalVisible)}>

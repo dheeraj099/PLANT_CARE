@@ -5,7 +5,7 @@ import { AuthProvider } from './context/auth';
 import * as Notification from './manager/NotificationManager';
 import Account from './screens/Account';
 import AddNewPlant from './screens/AddNewPlant';
-import AddPlant from './screens/AddPlant';
+// import AddPlant from './screens/AddPlant';
 import Home from './screens/Home';
 import Links from './screens/Links';
 import Post from './screens/Post';
@@ -30,7 +30,7 @@ export default function App() {
             <Stack.Screen name="Signin" component={Signin} />
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Account" component={Account} />
-            <Stack.Screen name="AddPlant" component={AddPlant} />
+            {/* <Stack.Screen name="AddPlant" component={AddPlant} /> */}
             <Stack.Screen name="Links" component={Links} />
             <Stack.Screen name="Post" component={Post} />
             <Stack.Screen name="SelectPlant" component={SelectPlant} />

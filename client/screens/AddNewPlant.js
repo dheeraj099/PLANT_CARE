@@ -23,7 +23,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import uuid from 'react-native-uuid';
 
 {/* Banner Photo */ }
-<View style={{ height: "35%" }}>
+
+{/* <View style={{ position:'absolute' }}>
     <Image
         source={{}}
         resizeMode="cover"
@@ -32,7 +33,7 @@ import uuid from 'react-native-uuid';
             height: '100%'
         }}
     />
-</View>
+</View> */}
 
 
 const RequirementBar = ({ icon, barPercentage }) => {
@@ -45,7 +46,7 @@ const RequirementBar = ({ icon, barPercentage }) => {
                     height: 50,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    borderRadius: 10,
+                    borderRadius: 15,
                     borderWidth: 1,
                     borderColor: COLORS.gray
                 }}
@@ -273,9 +274,10 @@ const PlantDetail = ({ route, navigation }) => {
             <ScrollView
                 style={{
                     position: 'absolute',
-                    top: 20,
-                    left: SIZES.padding,
-                    right: SIZES.padding
+                    top: -24,
+                    left: -24,
+                    right: -17,
+
                 }}
             > 
                 <View style={styles.centeredView}>
@@ -330,17 +332,22 @@ const PlantDetail = ({ route, navigation }) => {
                     </View>
 
                 </View>
-                <View style={{ alignItems: 'center' }}>
+                
+                <View style={{ alignItems: 'center', resizeMode:'cover',  }}>
                     <View >
                         <TouchableOpacity onPress={() => setPlantModalVisible(true)}>
                             {uploadImage ?
                                 <Image
                                     source={{ uri: uploadImage }}
-                                    style={{
-                                        width: 100,
-                                        height: 100,
-                                        borderRadius: 100,
-                                        marginVertical: 20
+                                    resizeMode="cover"
+                                    style={{                                       
+                                        width: 400,
+                                        height: 200,
+                                        borderBottomLeftRadius:0,
+                                        borderBottomRightRadius:0,
+                                        // borderRadius: 50,
+                                        marginVertical: 0,
+                                        marginTop:-60,
                                     }}
                                 />
                                 : <FontAwesome5 name="camera" size={55} color="orange" />
@@ -443,7 +450,8 @@ const PlantDetail = ({ route, navigation }) => {
                         justifyContent: 'center',
                         borderTopRightRadius: 30,
                         borderBottomRightRadius: 30,
-                        backgroundColor: COLORS.primary
+                        backgroundColor: COLORS.primary,
+                        
                     }}
                     onPress={handleUpload}
                 >
@@ -457,19 +465,18 @@ const PlantDetail = ({ route, navigation }) => {
         )
     }
 
-    return (
-
+    return (        
 
         <View style={styles.container}>
 
             {/* Banner Photo */}
-            <View style={{ height: "35%" }}>
+            <View style={{ height: "35%", }}>
                 <Image
                     source={{}}
                     resizeMode="cover"
                     style={{
-                        width: '100%',
-                        height: '100%'
+                        width: '200%',
+                        height: '200%'
                     }}
                 />
             </View>
@@ -478,7 +485,7 @@ const PlantDetail = ({ route, navigation }) => {
             <View
                 style={{
                     flex: 1,
-                    marginTop: -40,
+                    marginTop: -50,
                     backgroundColor: COLORS.lightGray,
                     borderTopLeftRadius: 40,
                     borderTopRightRadius: 40,
@@ -551,7 +558,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     container: {
-        flex: 1
+        flex:1,
     },
 
 })
