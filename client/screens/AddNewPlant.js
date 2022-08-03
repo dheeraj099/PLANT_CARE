@@ -282,7 +282,7 @@ const PlantDetail = ({ route, navigation }) => {
             > 
                 <View style={styles.centeredView}>
                     <Modal
-                        animationType="slide"
+                        animationType='fade'
                         transparent={true}
                         visible={plantModalVisible}
                         onRequestClose={() => {
@@ -350,7 +350,7 @@ const PlantDetail = ({ route, navigation }) => {
                                         marginTop:-60,
                                     }}
                                 />
-                                : <FontAwesome5 name="camera" size={55} color="orange" />
+                                : <FontAwesome5 name="camera" size={55} color="grey" />
                             }
                         </TouchableOpacity>
                     </View>
@@ -434,13 +434,7 @@ const PlantDetail = ({ route, navigation }) => {
                     detail={" Mg"}
                     value={fertilizer}
                     setValue={setFertilizer} />
-            </KeyboardAwareScrollView>
-        )
-    }
-
-    function renderFooter() {
-        return (
-            <View style={{ flex:0.25, flexDirection: 'row', paddingVertical: SIZES.padding, alignSelf:'flex-end'}}>
+                
                 <TouchableOpacity
                     style={{
                         flex: 1,
@@ -449,7 +443,9 @@ const PlantDetail = ({ route, navigation }) => {
                         alignItems: 'center',
                         justifyContent: 'center',
                         borderTopRightRadius: 30,
+                        borderTopLeftRadius: 30,
                         borderBottomRightRadius: 30,
+                        borderBottomLeftRadius: 30,
                         backgroundColor: COLORS.primary,
                         
                     }}
@@ -461,9 +457,13 @@ const PlantDetail = ({ route, navigation }) => {
                 </TouchableOpacity>
 
 
-            </View>
+                
+
+
+            </KeyboardAwareScrollView>
         )
     }
+
 
     return (        
 
@@ -498,7 +498,7 @@ const PlantDetail = ({ route, navigation }) => {
 
                 {renderRequirements()}
 
-                {renderFooter()}
+                {/* {renderFooter()} */}
             </View>
 
             {renderHeader()}
@@ -520,6 +520,8 @@ const styles = StyleSheet.create({
     },
     modalView: {
         position:'absolute',
+        animationType:'fade',
+        transparent:'true',
         margin: 20,
         backgroundColor: 'white',
         borderRadius: 20,

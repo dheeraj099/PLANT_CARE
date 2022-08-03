@@ -132,7 +132,7 @@ const PlantDetail = ({ route,navigation }) => {
 
                 </View>
 
-                <View style={{ flexDirection: 'row', marginTop: "10%" }}>
+                <View style={{  marginTop: "20%" }}>
                     <View style={{ flex: 1 }}>
                         <Text style={{ color: COLORS.white, ...FONTS.largeTitle }}>{plant.name}</Text>
                     </View>

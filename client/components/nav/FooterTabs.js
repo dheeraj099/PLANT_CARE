@@ -6,7 +6,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { Divider } from "react-native-elements";
 
 export const Tab = ({name, text, handlePress, ScreenName, routeName}) => {
-const activeScreenColor = ScreenName === routeName && 'orange';
+const activeScreenColor = ScreenName === routeName && 'green';
     return (
         
         <TouchableOpacity onPress={handlePress}>
