@@ -63,6 +63,9 @@ const Post = () => {
 
             </View>
             <View style = {styles.footer}></View>
+            <View style={{ flex: 1, justifyContent: "flex-end" }}>
+                <FooterTabs />
+            </View>
 
         </View>
         
@@ -109,6 +112,7 @@ const styles = StyleSheet.create({
     },
     mainPostView: {
         width: '100%',
+        height:"72%"
     },
     postTitle:{
         width:"90%",
