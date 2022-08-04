@@ -16,7 +16,7 @@ export const chevron = require("../assets/icons/chevron.png");
 export const downArrow = require("../assets/icons/down-arrow.png");
 export const back = require("../assets/icons/back.png");
 export const edit = require("../assets/icons/edit.png");
-
+export const mainatinance = require("../assets/images/mainatinance.jpg");
 export default {
     camera,
     cube,
@@ -35,5 +35,6 @@ export default {
     chevron,
     downArrow,
     back,
-    edit
+    edit,
+    mainatinance
 }

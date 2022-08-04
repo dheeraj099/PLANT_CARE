@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { images, icons, COLORS, FONTS, SIZES } from '../constants';
 import { AuthContext } from '../context/auth';
+import FooterTabs from '../components/nav/FooterTabs';
 
 const MyPlants = ({ navigation }) => {
 
@@ -82,12 +83,9 @@ const MyPlants = ({ navigation }) => {
                     data={state.plantProfiles}
                     renderItem={({ item, index }) => renderNewPlants(item, index)}
                     keyExtractor={item => item.name} />
+            </View>
 
                 
-               
-
-
-            </View>
         </View>
 
 
