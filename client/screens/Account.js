@@ -26,7 +26,7 @@ const Account = ({ navigation }) => {
     const [state, dispatch] = useContext(AuthContext);
 
     useEffect(() => {
-        if (state) {
+        if (state && state.user) {
             const { name, email, role, image } = state.user;
             setName(name);
             setEmail(email);

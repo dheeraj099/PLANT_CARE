@@ -54,7 +54,7 @@ const Signin = ({navigation}) => {
         let data = await AsyncStorage.getItem("@auth");
         console.log("FROM ASYNC STORAGE => ", data);
     };
-    loadFromAsyncStorage;
+    // loadFromAsyncStorage;
 
 
     return (
