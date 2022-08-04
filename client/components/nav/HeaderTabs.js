@@ -11,7 +11,7 @@ const HeaderTabs =() => {
 
     const handleSignOut = async () => {
         dispatch(signOut);
-        await AsyncStorage.removeItem('@auth');
+        // await AsyncStorage.removeItem('@auth');
     };
 
     return(

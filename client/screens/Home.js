@@ -100,7 +100,7 @@ const Home = ({ navigation }) => {
 
 
             {/* footer */}
-            <View style={{ height:"100%",flex: 1, justifyContent: "flex-end", }}>
+            <View style={{ flex: 1, justifyContent: "flex-end" }}>
                 <FooterTabs />
             </View>
         </View>

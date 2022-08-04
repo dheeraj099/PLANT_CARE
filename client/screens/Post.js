@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,setState } from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TextInput,ActivityIndicator, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
+import FooterTabs from '../components/nav/FooterTabs';
 const Post = () => {
     const [searchInput, setSearchInput] = useState('');
     const [feed, setFeed] = useState([]);
@@ -11,6 +12,7 @@ const Post = () => {
         .then((re) =>re.json())
         .then((re) => {
             setFeed(re.response);
+     
 
         })
         
@@ -23,6 +25,7 @@ const Post = () => {
             <View style={styles.TextInputView}>
                 <TextInput value={searchInput} onChangeText={(val) => setSearchInput(val)} placeholder={"Enter plant name"} placeholderTextColor={'#000'} style={styles.TextInput} />
             </View>
+            
 
             <View style={styles.mainPostView}>
                 {feed.length < 1?
@@ -49,8 +52,6 @@ const Post = () => {
                         </View>
 
                         <Image style={styles.cover_photo} source={{uri:item.cover_photo}} />
-
-
                     </View>
                 )}
               />
@@ -137,12 +138,6 @@ const styles = StyleSheet.create({
         width:'90%',
         height:200,
         backgroundColor:'rgba(0,0,0,0.06)'
-    },
-    footer: {
-        height:"100%",
-        flex: 1, justifyContent: "flex-end",
-
-    }
-    
+    }   
 
 })

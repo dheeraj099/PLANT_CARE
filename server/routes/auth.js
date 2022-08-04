@@ -13,7 +13,7 @@ const {
 
 router.get("/", (req, res) => {
   return res.json({
-    data: "hello world from kaloraat auth API",
+    data: "API Plant Care",
   });
 });
 router.post("/signup", signup);

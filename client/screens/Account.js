@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from "../context/auth";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import * as ImagePicker from 'expo-image-picker';
-import { signIn } from "../Action";
+import { signIn, signOut } from "../Action";
 
 const Account = ({ navigation }) => {
     const [name, setName] = useState("")
@@ -100,11 +100,12 @@ const Account = ({ navigation }) => {
         // update user info in the context and execute storage
     };
 
-    const signOut = async () => {
-        setState({ user:null, token:''});
+    const signout = async () => {
+        dispatch(signOut())
         await AsyncStorage.removeItem("@auth");
-        navigation.navigate("signIn");
+        navigation.navigate("Signin");
     }
+    
 
     return (
         <KeyboardAwareScrollView
@@ -177,7 +178,7 @@ const Account = ({ navigation }) => {
 
                 <SubmitButton
                     title={"Sign out"}
-                    handleSubmit={signOut}
+                    handleSubmit={signout}
                     loading={loading}
                 />
 
