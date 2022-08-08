@@ -21,8 +21,10 @@ const UserInput = ({
                 style={{
                     borderBottomWidth: 0.5,
                     height: 40,
+
                     borderBottomColor: '#8e93a1',
                     marginBottom: 30,
+                    
                 }}
                 value={value}
                 onChangeText={(Text) => setValue(Text)}

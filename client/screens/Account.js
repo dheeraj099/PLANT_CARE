@@ -104,6 +104,7 @@ const Account = ({ navigation }) => {
         dispatch(signOut())
         await AsyncStorage.removeItem("@auth");
         navigation.navigate("Signin");
+        
     }
     
 

@@ -38,7 +38,7 @@ const MyPlants = ({ navigation }) => {
                             // position: 'absolute',
                             // bottom: '100%',
                             // right: 0,
-                            backgroundColor: "gray",
+                            backgroundColor: COLORS.primary,
                             paddingHorizontal: SIZES.base,
                             borderRadius: 0,
                         }}

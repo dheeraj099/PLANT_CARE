@@ -36,6 +36,7 @@ export const SIZES = {
 };
 export const FONTS = {
     largeTitle: {  fontSize: SIZES.largeTitle, lineHeight: 55 },
+    h0: {  fontSize: SIZES.h1, lineHeight: 36 },
     h1: {  fontSize: SIZES.h1, lineHeight: 36 },
     h2: {  fontSize: SIZES.h2, lineHeight: 30 },
     h3: {  fontSize: SIZES.h3, lineHeight: 22 },

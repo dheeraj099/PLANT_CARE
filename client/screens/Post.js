@@ -1,5 +1,6 @@
 import React, { useState, useEffect,setState } from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TextInput,ActivityIndicator, Image } from 'react-native';
+import { BackgroundImage } from 'react-native-elements/dist/config';
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
 import FooterTabs from '../components/nav/FooterTabs';
 const Post = () => {
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
     },
     mainPostView: {
         width: '100%',
-        height:"72%"
+        height:"72%",
     },
     postTitle:{
         width:"90%",

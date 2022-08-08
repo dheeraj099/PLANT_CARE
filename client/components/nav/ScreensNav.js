@@ -73,7 +73,7 @@ export default function ScreensNav() {
             <Stack.Screen 
               name="Signin" 
               component={Signin} 
-              options={{headerShown: false}} 
+              options={{header: () => null}}
             />       
             <Stack.Screen 
               name="SignUp" 
