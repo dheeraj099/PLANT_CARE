@@ -61,6 +61,7 @@
     "react-native-image-crop-picker": "^0.38.0",
     "react-native-image-picker": "^4.8.4",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "react-native-marquee": "^0.4.0",
     "react-native-paper": "^4.12.3",
     "react-native-sqlite-storage": "^6.0.1",
     "react-native-ui-kitten": "^4.4.1",

@@ -13,6 +13,7 @@ import { images, icons, COLORS, FONTS, SIZES } from '../constants';
 import { AuthContext } from '../context/auth';
 import FooterTabs from '../components/nav/FooterTabs';
 
+
 const MyPlants = ({ navigation }) => {
 
     const [state, dispatch] = useContext(AuthContext);
@@ -62,11 +63,12 @@ const MyPlants = ({ navigation }) => {
 
 
 
-            <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', marginTop:-20}}>
+            <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', marginTop:-20, maxWidth:"100%"}}>
                 <Text style={{ color: COLORS.secondary, ...FONTS.h1, }}>{'\n'}MY PLANTS</Text>
             </View>
 
-            <View style={{ overflow: 'scroll', maxHeight: 464,}}>
+            <View style={{ overflow: 'scroll', maxHeight: 520,}}>
+                
 
 
 
@@ -85,8 +87,38 @@ const MyPlants = ({ navigation }) => {
                     keyExtractor={item => item.name} />
             </View>
 
+            <View style={{ flexDirection: "row", flex: 1, justifyContent:"flex-end",}}>
+                        <TouchableOpacity
+                            style={{
+                                marginRight: -20,                                
+                                marginTop:-40,
+                                width: 55,
+                                height: 55,
+                                borderRadius: 100,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                backgroundColor: "#FF8C00",
+                                
+                            }}
+                            onPress={() => {
+                                console.log("Clicked on add plant")
+                                navigation.navigate("AddNewPlant")
+                            }}>
+
+
+                            <Image
+                                source={icons.plus}
+                                resizeMode="contain"
+                                style={{
+                                    width: 20,
+                                    height: 20,                            
+                                }} />
+                        </TouchableOpacity>
+                    </View>
+
                 
         </View>
+        
 
 
     )

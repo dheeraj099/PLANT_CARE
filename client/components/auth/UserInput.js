@@ -21,7 +21,8 @@ const UserInput = ({
                 style={{
                     borderBottomWidth: 0.5,
                     height: 40,
-
+                    fontSize:20,
+                    // color:"gray",
                     borderBottomColor: '#8e93a1',
                     marginBottom: 30,
                     
