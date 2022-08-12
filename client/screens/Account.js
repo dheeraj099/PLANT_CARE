@@ -25,12 +25,15 @@ const Account = ({ navigation }) => {
     //context
     const [state, dispatch] = useContext(AuthContext);
 
+    console.log("CONTEXT IN ACCOUNT => " , state);
+
     useEffect(() => {
         if (state && state.user) {
             const { name, email, role, image } = state.user;
             setName(name);
             setEmail(email);
             setRole(role);
+            setImage(image);
         }
     }, [state]);
 
@@ -88,16 +91,19 @@ const Account = ({ navigation }) => {
         let base64Image = `data:image/jpg;base64,${pickerResult.base64}`;
         setUploadImage(base64Image);
         //send to backend for uploading to cloudinary
-        let token = state && state.token ? state.token : "";
-        const { data } = await axios.post('/upload-image', {
-            image: base64Image
-        }, {
-            headers: {
-                "Authorization": `Bearer ${state.token}`
-            }
-        })
+        
+        const { data } = await axios.post("/upload-image", {
+            image: base64Image,
+        }, );
         console.log("UPLOADED RESPONSE => ", data);
-        // update user info in the context and execute storage
+        // update async storage
+        const as = JSON.parse(await AsyncStorage.getItem("@auth")); //{user:, token:''}
+        as.user = data;
+        await AsyncStorage.setItem("@auth", JSON.stringify(as));
+        // update context
+        setState({ ...state, user: data });
+        setImage(data.image);
+        alert("profile image saved");
     };
 
     const signout = async () => {
