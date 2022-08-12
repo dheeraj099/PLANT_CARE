@@ -12,6 +12,7 @@ import {
     ScrollView,
     Animated
 } from 'react-native';
+import Swiper from 'react-native-swiper';
 
 
 import MarqueeText from 'react-native-marquee';
@@ -47,18 +48,22 @@ const Home = ({ navigation }) => {
 
                     <View style={{ alignItems: 'center', flex: 2, marginHorizontal: SIZES.padding, marginTop: 60 }}>
                         <View style={{ alignSelf: 'flex-start' }}>
-                            
-                                <Text style={{ color: COLORS.white, ...FONTS.h2, textAlign: "center" }}>"If you have a garden and a library, you have everything you need" </Text>
-                               
-                                </View>
-                        <View>
                             <View>
-                           
-                           
-                                <Text style={{ color: COLORS.white, ...FONTS.h3, textAlign: 'right', paddingLeft: 110 }}> – Marcus Tullius Cicero</Text>
-                             
 
-                                </View>
+                                <Swiper style={styles.wrapper} showsButtons={false} autoplay = { true}>
+                                    <View style={styles.slide1}>
+                                        <Text style={styles.text}>Remember that children, marriages, and flower gardens reflect the kind of care they get.</Text>
+                                    </View>
+                                    <View style={styles.slide2}>
+                                        <Text style={styles.text}>Gardens are not made by singing "Oh, how beautiful," and sitting in the shade.</Text>
+                                    </View>
+                                    <View style={styles.slide3}>
+                                        <Text style={styles.text}>Trees and plants always look like the people they live with, somehow.</Text>
+                                    </View>
+                                </Swiper>
+
+
+                            </View>
                         </View>
                     </View>
 
@@ -97,6 +102,31 @@ const styles = StyleSheet.create({
     homeContainer: {
         flex: 1,
     },
+    wrapper: {
+    },
+    slide1: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        //   backgroundColor: 'red',
+    },
+    slide2: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        //   backgroundColor: '#97CAE5',
+    },
+    slide3: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        //   backgroundColor: '#92BB',
+    },
+    text: {
+        color: '#fff',
+        fontSize: 17,
+        fontWeight: 'bold',
+    }
 });
 
 
