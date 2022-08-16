@@ -44,7 +44,7 @@ export default function ScreensNav() {
                  <Stack.Screen 
                 name="weather" 
                 component={weather} 
-                options={{ headerShown: false }} 
+                options={{header: () => null}}
                 />
                
                 {/* <Stack.Screen 

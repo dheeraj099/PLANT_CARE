@@ -239,7 +239,7 @@ const PlantDetail = ({ route, navigation }) => {
             const identifier = await NotificationManger.schedulePushNotification(
                 {
                     title: "Its time to water your " + newPlant.name + " plant",
-                    body: "Please water your plant"
+                    body: "Please water your plant. Did you Water..?" 
                 },
                 {
                     day: newPlant.water,
@@ -401,31 +401,38 @@ const PlantDetail = ({ route, navigation }) => {
                     label="Name" />
                 <UserInput
                     value={plantName}
-                    setValue={setPlantName} />
+                    setValue={setPlantName} 
+                    placeholder={""}/>
                 
                 <RequirementDetail
                     icon={icons.sun}
-                    label="Sunlight" />
+                    label="Sunlight" 
+                    placeholder={""}/>
                 <UserInput
                     detail={"°C"}
                     value={sunlight}
-                    setValue={setSunlight} />
+                    setValue={setSunlight} 
+                    placeholder={""}/>
 
                 <RequirementDetail
                     icon={icons.drop}
-                    label="Water" />
+                    label="Water" 
+                    placeholder={""}/>
                 <UserInput
                     detail={"Every " + " Days"}
                     value={water}
-                    setValue={setWater} />
+                    setValue={setWater} 
+                    placeholder={""}/>
 
                 <RequirementDetail
                     icon={icons.garden}
-                    label="Soil" />
+                    label="Soil" 
+                    placeholder={""}/>
                 <UserInput
                     detail={" Kg"}
                     value={soil}
-                    setValue={setSoil} />
+                    setValue={setSoil} 
+                    placeholder={""}/>
 
                 <RequirementDetail
                     icon={icons.seed}
@@ -433,7 +440,8 @@ const PlantDetail = ({ route, navigation }) => {
                 <UserInput
                     detail={" Mg"}
                     value={fertilizer}
-                    setValue={setFertilizer} />
+                    setValue={setFertilizer} 
+                    placeholder={""}/>
                 
                 <TouchableOpacity
                     style={{

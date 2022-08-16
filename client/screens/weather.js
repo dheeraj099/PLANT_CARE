@@ -17,6 +17,7 @@
  } from 'react-native';
  
  import axios from 'axios';
+ import FooterTabs from '../components/nav/FooterTabs';
  
  const styles = StyleSheet.create({
    root: {
@@ -37,7 +38,7 @@
      fontSize: 19,
      fontWeight: '300',
      borderRadius: 16,
-     borderBottomColor: '#df8e00',
+     borderBottomColor: 'green',
    },
  
    cityCountryText: {
@@ -134,7 +135,9 @@
              )} °C / Max ${Math.round(data?.main?.temp_max)} °C`}</Text>
            </View>
          )}
+         
        </ImageBackground>
+       <FooterTabs/>
      </View>
    );
  };

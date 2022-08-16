@@ -9,6 +9,7 @@ const UserInput = ({
     autoCapitalize = "none",  
     keyboardType = "default", 
     secureTextEntry = false,
+    placeholder="placeholder"
 }) => {
     return (
             <View style={{marginHorizontal: 24 }}>
@@ -18,6 +19,8 @@ const UserInput = ({
                 autoCapitalize={autoCapitalize}
                 keyboardType={keyboardType}
                 secureTextEntry={secureTextEntry} 
+                placeholder={placeholder}
+                
                 style={{
                     borderBottomWidth: 0.5,
                     height: 40,
@@ -26,11 +29,14 @@ const UserInput = ({
                     borderBottomColor: '#8e93a1',
                     marginBottom: 30,
                     
+                 
+                    
                 }}
                 value={value}
                 onChangeText={(Text) => setValue(Text)}
                 />
             </View>
+            
     );
 };
 

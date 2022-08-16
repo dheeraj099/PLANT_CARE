@@ -39,7 +39,7 @@ export default function App() {
             <Stack.Screen name="SelectPlant" component={SelectPlant} />
             <Stack.Screen name="PlantDetail" component={PlantDetail} />
             <Stack.Screen name="AddNewPlant" component={AddNewPlant} />
-            <Stack.Screen name="weather" component={weather} />
+            <Stack.Screen name="weather" component={weather} options={{header: () => null}}/>
         </Stack.Navigator>
 
 

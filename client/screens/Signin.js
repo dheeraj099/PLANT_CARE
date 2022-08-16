@@ -98,19 +98,25 @@ const Signin = ({ navigation }) => {
                         //   height:50,
                         marginBottom: 20,                        
                         justifyContent: "center",
-                        paddingLeft: 10
+                        paddingLeft: 10,
+                        height:30,
+                        
                     }}>
                         
 
-                        <TextInput
+                        <UserInput
 
-                            name="EMAIL"
+                            // name="EMAIL"
                             value={email}
                             setValue={setEmail}
                             autoCompleteType="email"
                             keyboardType="email-address"
+                            placeholder={"email"}
+                            
+                        
                         />
                     </View>
+                    
                     <View style={{
                         alignContent: 'center',
                         alignSelf: 'center',
@@ -120,14 +126,19 @@ const Signin = ({ navigation }) => {
                         //   height:50,
                         marginBottom: 20,
                         justifyContent: "center",
-                        paddingLeft: 10
+                        paddingLeft: 10,
+                        height:30,
+                        
                     }}>
-                        <TextInput
-                            name="PASSWORD"
+                        <UserInput
+                            // name="PASSWORD"                            
                             value={password}
                             setValue={setPassword}
                             secureTextEntry={true}
                             autoCompleteType="password"
+                            placeholder={"password"}
+                      
+                            
                         />
                     
                     </View>
