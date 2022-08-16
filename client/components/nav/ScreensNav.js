@@ -12,6 +12,7 @@ import PlantDetail from '../../screens/PlantDetail';
 // import AddPlant from '../../screens/AddPlant';
 import SelectPlant from '../../screens/SelectPlant';
 import AddNewPlant from '../../screens/AddNewPlant'
+import weather from '../../screens/weather'
 
 const Stack = createNativeStackNavigator();
 
@@ -38,6 +39,11 @@ export default function ScreensNav() {
               <Stack.Screen 
                 name="PlantDetail" 
                 component={PlantDetail} 
+                options={{ headerShown: false }} 
+                />
+                 <Stack.Screen 
+                name="weather" 
+                component={weather} 
                 options={{ headerShown: false }} 
                 />
                

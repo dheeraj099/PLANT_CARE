@@ -68,6 +68,7 @@
     "react-native-swiper": "^1.6.0",
     "react-native-ui-kitten": "^4.4.1",
     "react-native-uuid": "^2.0.1",
+    "react-native-weather-api": "^3.0.2",
     "react-native-web": "0.17.7",
     "reanimated-bottom-sheet": "^1.0.0-alpha.22",
     "use-theme": "^0.1.5",

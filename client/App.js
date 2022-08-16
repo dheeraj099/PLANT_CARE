@@ -12,8 +12,11 @@ import Post from './screens/Post';
 import { default as PlantDetail, default as SelectPlant } from './screens/SelectPlant';
 import Signin from './screens/Signin';
 import Signup from './screens/Signup';
+import weather from './screens/weather';
 
 const Stack = createNativeStackNavigator();
+
+
 
 Notification.showPushNotification();
 
@@ -36,6 +39,7 @@ export default function App() {
             <Stack.Screen name="SelectPlant" component={SelectPlant} />
             <Stack.Screen name="PlantDetail" component={PlantDetail} />
             <Stack.Screen name="AddNewPlant" component={AddNewPlant} />
+            <Stack.Screen name="weather" component={weather} />
         </Stack.Navigator>
 
 

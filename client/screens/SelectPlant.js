@@ -144,27 +144,38 @@ const PlantDetail = ({ route,navigation }) => {
 
     function renderRequirementsBar() {
         return (
+          
             <View style={{ flexDirection: 'row', marginTop: SIZES.padding, paddingHorizontal: SIZES.padding, justifyContent: 'space-between' }}>
+                <TouchableOpacity onPress={() => { navigation.navigate("weather")}}>
                 <RequirementBar
                     icon={icons.sun}
                     barPercentage="50%"
                 />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => { navigation.navigate("Home")}}>
                 <RequirementBar
                     icon={icons.drop}
                     barPercentage="25%"
                 />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => { navigation.navigate("Home")}}>
                 <RequirementBar
                     icon={icons.temperature}
                     barPercentage="80%"
                 />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => { navigation.navigate("Home")}}>
                 <RequirementBar
                     icon={icons.garden}
                     barPercentage="30%"
                 />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => { navigation.navigate("Home")}}>
                 <RequirementBar
                     icon={icons.seed}
                     barPercentage="50%"
                 />
+                </TouchableOpacity>
             </View>
         )
     }

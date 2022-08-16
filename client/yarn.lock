@@ -7435,6 +7435,11 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
+"react-native-weather-api@^3.0.2":
+  "integrity" "sha512-dWPe5v56xmd7iIwNYsExjd3XBvw1owxda0lNrFyCPkPGc2BW7A/pbaotPd0l0Na2aFzO8FYeV4n3KgrCa3Xbpw=="
+  "resolved" "https://registry.npmjs.org/react-native-weather-api/-/react-native-weather-api-3.0.2.tgz"
+  "version" "3.0.2"
+
 "react-native-web@0.17.7":
   "integrity" "sha512-4OOU/QjyRySOXyHfTvljEMS4VXKn42Qs3y9uHDPMwaCUFjwg0oasR/j706OaVgan9kF4Ipa2vJ3F6Z/Xqy8KeQ=="
   "resolved" "https://registry.npmjs.org/react-native-web/-/react-native-web-0.17.7.tgz"
