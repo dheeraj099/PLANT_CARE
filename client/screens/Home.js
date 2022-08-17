@@ -10,9 +10,12 @@ import {
     Modal,
     Pressable,
     ScrollView,
-    Animated
+    Animated,
+    BackHandler,
+    Alert 
 } from 'react-native';
 import Swiper from 'react-native-swiper';
+import { useFocusEffect } from '@react-navigation/native';
 
 
 import MarqueeText from 'react-native-marquee';
@@ -20,17 +23,40 @@ import { images, icons, COLORS, FONTS, SIZES } from '../constants';
 import FooterTabs from "../components/nav/FooterTabs";
 import MyPlants from './MyPlants';
 import * as Font from 'expo-font';
-import { useState } from 'react';
+import { Component, useEffect, useState } from 'react';
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 
 
 
-const Home = ({ navigation }) => {
 
+
+
+const Home = ({ navigation }) => {
+    useFocusEffect(
+        React.useCallback(() => {
+          const onBackPress = () => {
+           
+           Alert.alert('Hold on!', 'Are you sure you want to exit?', [
+              {
+                text: 'Cancel',
+                onPress: () => null,
+                style: 'cancel',
+              },
+              {text: 'YES', onPress: () => navigation.goBack()},
+            ]);
+            return true;
+          };
+    
+          BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    
+          return () =>
+            BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+        }, []),
+      );
 
     const [modalVisible, setModalVisible] = useState(false);
-
+    
     return (
 
 
@@ -85,6 +111,9 @@ const Home = ({ navigation }) => {
                 <MyPlants navigation={navigation} />
 
             </View>
+             {/* <View style={styles.container}>
+      <Text style={styles.text}>Click Back button!</Text>
+    </View> */}
 
 
 
@@ -93,6 +122,10 @@ const Home = ({ navigation }) => {
                 <FooterTabs />
             </View>
         </View>
+
+        
+
+        
 
 
     );
