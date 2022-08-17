@@ -106,7 +106,7 @@
          style={styles.image}>
          <View>
            <TextInput
-             placeholder="Enter city name and press return..."
+             placeholder="Enter city name ..."
              style={styles.textInput}
              onChangeText={text => setInput(text)}
              placeholderTextColor={'#000'}

@@ -15,13 +15,13 @@ sgMail.setApiKey(process.env.SENDGRID_KEY);
 // cloudinary
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_NAME ,
-  api_key: process.env.CLOUDINARY_Key,
-  api_secret: process.env.CLOUDINARY_SECRET,
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME ,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 //midleware
-export const requireSignin = expressJwt ({
+exports.requireSignin = expressJwt ({
   secret: process.env.JWT_SECRET,
   algorithms: ["HS256"],
 });
@@ -148,7 +148,7 @@ export const forgotPassword = async (req, res) => {
   }
 };
 
-export const resetPassword = async (req, res) => {
+exports.resetPassword = async (req, res) => {
   try {
     const { email, password, resetCode } = req.body;
     // find user based on email and resetCode
@@ -173,19 +173,34 @@ export const resetPassword = async (req, res) => {
     console.log(err);
   }
 };
-  export const  uploadImage = async (req, res ) => {
+  exports.uploadImage = async (req, res ) => {
     // console.log("upload image > user_id", req.user._id);
 
     try{
-      const result = cloudinary.uploader.upload(req.body.image, {
+      const result = await cloudinary.uploader.upload(req.body.image, {
         public_id: nanoid (),
         resource_type: "jpg"
       });
 
       console.log("CLOUDINARY RESULT =>", result);
 
+      const user = await User.findByIdAndUpdate(req.user._id, {image:{
+        public_id: result.public_id,
+        url: result.secure_url,
+      },
+    }, 
+    {new:true}
+    );
+    // send response
+    return res.json({
+      name: user.name,
+      email: user.email,
+      image: user.image,
+    })
+
     }catch (err) {
       console.log(err)
     }
 
-  }
+  };
+

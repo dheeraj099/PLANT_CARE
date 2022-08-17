@@ -137,6 +137,7 @@ const Signin = ({ navigation }) => {
                             secureTextEntry={true}
                             autoCompleteType="password"
                             placeholder={"password"}
+                            
                       
                             
                         />

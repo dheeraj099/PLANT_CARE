@@ -117,10 +117,10 @@ const RequirementDetail = ({ icon, label, detail }) => {
 
 const PlantDetail = ({ route, navigation }) => {
     const plant = route.params;
-    
+
     React.useEffect(() => {
         console.log("Route params " + JSON.stringify(route.params))
-        if (route.params && isEditing === false){
+        if (route.params && isEditing === false) {
             setEditing(true);
             setPlantName(plant.name);
             setWater(plant.water)
@@ -198,7 +198,7 @@ const PlantDetail = ({ route, navigation }) => {
 
         // // TODO remove for prod
         // dispatch(loadState({plantProfiles: [], myPlants:[]}));
-        
+
         let newPlant = {
             name: plantName,
             soil: soil,
@@ -231,15 +231,15 @@ const PlantDetail = ({ route, navigation }) => {
                 console.log("Deleting old image : " + plant.image)
                 await FileSystem.deleteAsync(plant.image)
             }
-            
+
             newPlant.image = localImageLocation;
 
 
-            
+
             const identifier = await NotificationManger.schedulePushNotification(
                 {
                     title: "Its time to water your " + newPlant.name + " plant",
-                    body: "Please water your plant. Did you Water..?" 
+                    body: "Please water your plant. Did you Water..?"
                 },
                 {
                     day: newPlant.water,
@@ -258,7 +258,7 @@ const PlantDetail = ({ route, navigation }) => {
             else {
                 dispatch(appendPlantProfile(newPlant))
             }
-            
+
             // setLoading(false);
             navigation.navigate("Home")
         } catch (err) {
@@ -279,9 +279,10 @@ const PlantDetail = ({ route, navigation }) => {
                     right: -17,
 
                 }}
-            > 
+            >
                 <View style={styles.centeredView}>
                     <Modal
+                        animated
                         animationType='fade'
                         transparent={true}
                         visible={plantModalVisible}
@@ -332,22 +333,22 @@ const PlantDetail = ({ route, navigation }) => {
                     </View>
 
                 </View>
-                
-                <View style={{ alignItems: 'center', resizeMode:'cover',  }}>
+
+                <View style={{ alignItems: 'center', resizeMode: 'cover', }}>
                     <View >
                         <TouchableOpacity onPress={() => setPlantModalVisible(true)}>
                             {uploadImage ?
                                 <Image
                                     source={{ uri: uploadImage }}
                                     resizeMode="cover"
-                                    style={{                                       
+                                    style={{
                                         width: 400,
                                         height: 200,
-                                        borderBottomLeftRadius:0,
-                                        borderBottomRightRadius:0,
+                                        borderBottomLeftRadius: 0,
+                                        borderBottomRightRadius: 0,
                                         // borderRadius: 50,
                                         marginVertical: 0,
-                                        marginTop:-60,
+                                        marginTop: -60,
                                     }}
                                 />
                                 : <FontAwesome5 name="camera" size={55} color="grey" />
@@ -401,38 +402,38 @@ const PlantDetail = ({ route, navigation }) => {
                     label="Name" />
                 <UserInput
                     value={plantName}
-                    setValue={setPlantName} 
-                    placeholder={""}/>
-                
+                    setValue={setPlantName}
+                    placeholder={""} />
+
                 <RequirementDetail
                     icon={icons.sun}
-                    label="Sunlight" 
-                    placeholder={""}/>
+                    label="Sunlight"
+                    placeholder={""} />
                 <UserInput
                     detail={"°C"}
                     value={sunlight}
-                    setValue={setSunlight} 
-                    placeholder={""}/>
+                    setValue={setSunlight}
+                    placeholder={""} />
 
                 <RequirementDetail
                     icon={icons.drop}
-                    label="Water" 
-                    placeholder={""}/>
+                    label="Water"
+                    placeholder={""} />
                 <UserInput
                     detail={"Every " + " Days"}
                     value={water}
-                    setValue={setWater} 
-                    placeholder={""}/>
+                    setValue={setWater}
+                    placeholder={""} />
 
                 <RequirementDetail
                     icon={icons.garden}
-                    label="Soil" 
-                    placeholder={""}/>
+                    label="Soil"
+                    placeholder={""} />
                 <UserInput
                     detail={" Kg"}
                     value={soil}
-                    setValue={setSoil} 
-                    placeholder={""}/>
+                    setValue={setSoil}
+                    placeholder={""} />
 
                 <RequirementDetail
                     icon={icons.seed}
@@ -440,9 +441,9 @@ const PlantDetail = ({ route, navigation }) => {
                 <UserInput
                     detail={" Mg"}
                     value={fertilizer}
-                    setValue={setFertilizer} 
-                    placeholder={""}/>
-                
+                    setValue={setFertilizer}
+                    placeholder={""} />
+
                 <TouchableOpacity
                     style={{
                         flex: 1,
@@ -455,7 +456,7 @@ const PlantDetail = ({ route, navigation }) => {
                         borderBottomRightRadius: 30,
                         borderBottomLeftRadius: 30,
                         backgroundColor: COLORS.primary,
-                        
+
                     }}
                     onPress={handleUpload}
                 >
@@ -465,7 +466,7 @@ const PlantDetail = ({ route, navigation }) => {
                 </TouchableOpacity>
 
 
-                
+
 
 
             </KeyboardAwareScrollView>
@@ -473,7 +474,7 @@ const PlantDetail = ({ route, navigation }) => {
     }
 
 
-    return (        
+    return (
 
         <View style={styles.container}>
 
@@ -527,9 +528,9 @@ const styles = StyleSheet.create({
         zIndex: 5,
     },
     modalView: {
-        position:'absolute',
-        animationType:'fade',
-        transparent:'true',
+        position: 'absolute',
+        animationType: 'fade',
+        transparent: 'true',
         margin: 20,
         backgroundColor: 'white',
         borderRadius: 20,
@@ -547,8 +548,8 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         padding: 10,
         elevation: 0,
-        marginVertical:5
-       
+        marginVertical: 5
+
     },
     buttonOpen: {
         backgroundColor: 'transparent',
@@ -557,18 +558,18 @@ const styles = StyleSheet.create({
     buttonClose: {
         backgroundColor: '#2196F3',
     },
-    textStyle: {        
+    textStyle: {
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center',
-     
+
     },
     modalText: {
         marginBottom: 15,
         textAlign: 'center',
     },
     container: {
-        flex:1,
+        flex: 1,
     },
 
 })
